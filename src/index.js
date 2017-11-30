@@ -23,6 +23,30 @@ class Board extends React.Component {
     return this.state.xIsNext ? 'X' : 'O';
   }
 
+  calculateWinner() {
+    const createLine = (from, by) =>
+      [0, 1, 2].map(i => from + i * by);
+
+    const winningLines = [
+      createLine(0, 1),
+      createLine(0, 3),
+      createLine(0, 4),
+      createLine(1, 3),
+      createLine(2, 2),
+      createLine(2, 3),
+      createLine(3, 1),
+      createLine(6, 1),
+    ];
+
+    const getSquares = line =>
+      line.map(i => this.state.squares[i]).join('');
+
+    const isWinner = squares =>
+      squares === 'XXX' || squares === 'OOO';
+
+    return (winningLines.map(getSquares).find(isWinner) || '')[0];
+  }
+
   handleClick(i) {
     const squares = this.state.squares.slice();
     squares[i] = this.nextPlayer;
@@ -40,7 +64,10 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = `Next player: ${this.nextPlayer}`;
+    const winner = this.calculateWinner();
+    const status = winner ?
+      `Winner: ${winner}` :
+      `Next player: ${this.nextPlayer}`;
 
     return (
       <div>
