@@ -4,9 +4,9 @@ import './index.css';
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <span className="square" onClick={props.onClick}>
       {props.value}
-    </button>
+    </span>
   );
 }
 
@@ -27,7 +27,7 @@ function Board(props) {
   );
 
   return (
-    <div>
+    <div className="board-grid">
       {renderRow(0)}
       {renderRow(1)}
       {renderRow(2)}
@@ -112,16 +112,14 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <div className="game-board">
+        <div className="game-main">
           {this.renderStatus()}
           <Board
             squares={this.currentState.squares}
             onClick={i => this.handleClick(i)}
           />
         </div>
-        <div className="game-info">
-          {this.renderHistory()}
-        </div>
+        {this.renderHistory()}
       </div>
     );
   }
@@ -143,15 +141,13 @@ class Game extends React.Component {
         `Go to move #${i}` :
         'Go to game start';
       return (
-        <li key={i}>
-          <button onClick={() => this.jumpToState(i)}>
-            {description}
-          </button>
-        </li>
+        <button className="history-entry" onClick={() => this.jumpToState(i)}>
+          {description}
+        </button>
       );
     });
     return (
-      <ol>{moves}</ol>
+      <div class="history">{moves}</div>
     );
   }
 }
