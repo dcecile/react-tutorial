@@ -63,8 +63,8 @@ body {
   flex: 1;
   cursor: pointer;
   transition:
-    background-color 0.4s 0s ease-out,
-    box-shadow 0.4s 0s ease-in;
+    background-color 400ms ease-out,
+    box-shadow 400ms ease-in;
 }
 
 .square:hover {
@@ -73,8 +73,8 @@ body {
     inset 0 0 1.5rem #005f24,
     inset 0 0 2.5rem #005f24;
   transition:
-    background-color 0.05s 0s ease-in,
-    box-shadow 0.05s 0s ease-out;
+    background-color 50ms ease-in,
+    box-shadow 50ms ease-out;
 }
 
 .board-row:first-child .square {
@@ -108,14 +108,14 @@ body {
   border-radius: 0.4em;
   cursor: pointer;
   outline: none;
-  transition: box-shadow 0.3s 0s ease-out;
+  transition: box-shadow 300ms ease-out;
 }
 
 .history-entry:hover {
   box-shadow:
     inset 0 0 0.5em rgba(251, 202, 225, 0.7),
     0 0 0.8em rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.05s 0s ease-in;
+  transition: box-shadow 50ms ease-in;
 }
 
 .history-entry:not(:first-child) {
@@ -129,6 +129,14 @@ body {
 
 .history-entry-next {
   opacity: 0.5;
+}
+
+.history-entry-exiting {
+  transform: scale(0.0);
+  opacity: 0;
+  transition:
+    transform 400ms ease-in,
+    opacity 400ms ease-in;
 }
 
 @media (min-width: 50rem) {

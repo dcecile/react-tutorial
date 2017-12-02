@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Transition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import './index.css';
 
@@ -43,7 +44,8 @@ function HistoryItem(props) {
   const className = classNames({
     'history-entry': true,
     'history-entry-current': props.diff === 0,
-    'history-entry-next': props.diff > 0
+    'history-entry-next': props.diff > 0,
+    [`history-entry-${props.status}`]: true
   });
 
   return (
@@ -154,16 +156,25 @@ class Game extends React.Component {
   }
 
   renderHistory() {
-    const moves = this.state.history.map((_state, i) => (
+    const createHistoryItem = (i, status) => (
       <HistoryItem
-        key={i}
         i={i}
+        status={status}
         diff={i - this.state.historyIndex}
         onClick={() => this.jumpToState(i)}
       />
+    );
+
+    const historyItems = this.state.history.map((_state, i) => (
+      <Transition key={i} timeout={{exit: 400}}>
+        {status => createHistoryItem(i, status)}
+      </Transition>
     ));
+
     return (
-      <div className="history">{moves}</div>
+      <TransitionGroup className="history">
+        {historyItems}
+      </TransitionGroup>
     );
   }
 }
