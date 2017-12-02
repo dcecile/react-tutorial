@@ -28,8 +28,13 @@ function Board(props) {
     </div>
   );
 
+  const className = classNames({
+    'board-grid': true,
+    [`board-grid-${props.animation}`]: props.animation
+  });
+
   return (
-    <div className="board-grid">
+    <div className={className}>
       {renderRow(0)}
       {renderRow(1)}
       {renderRow(2)}
@@ -64,7 +69,9 @@ class Game extends React.Component {
           squares: Array(9).fill(null)
         }
       ],
-      historyIndex: 0
+      historyIndex: 0,
+      animation: false,
+      handleAnimationEnd: null
     };
   }
 
@@ -76,16 +83,44 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.historyIndex + 1);
     history.push(newState);
     this.setState({
+      ...this.state,
       history,
-      historyIndex: this.state.historyIndex + 1
+      historyIndex: this.state.historyIndex + 1,
     });
   }
 
   jumpToState(index) {
-    const history = this.state.history;
+    const animation =
+      index < this.state.historyIndex ?
+        'jump-backward' :
+      index === this.state.historyIndex ?
+        'jump-invalid' :
+        'jump-forward';
+    this.setStateAfterAnimation(animation, {
+        historyIndex: index
+    });
+  }
+
+  setStateAfterAnimation(animation, newState) {
+    if (this.state.animation) {
+      this.setState({
+        ...this.state,
+        ...newState
+      });
+      return;
+    }
+
     this.setState({
-      history,
-      historyIndex: index
+      ...this.state,
+      animation,
+      handleAnimationEnd: () => {
+        this.setState({
+          ...this.state,
+          ...newState,
+          animation: null,
+          handleAnimationEnd: null
+        });
+      }
     });
   }
 
@@ -129,14 +164,21 @@ class Game extends React.Component {
     });
   }
 
+  handleAnimationEnd() {
+    if (this.state.handleAnimationEnd) {
+      this.state.handleAnimationEnd();
+    }
+  }
+
   render() {
     return (
-      <div className="game">
+      <div className="game" onAnimationEnd={() => this.handleAnimationEnd()}>
         <div className="game-main">
           {this.renderStatus()}
           <Board
             squares={this.currentState.squares}
             onClick={i => this.handleClick(i)}
+            animation={this.state.animation}
           />
         </div>
         {this.renderHistory()}

@@ -51,6 +51,51 @@ body {
   color: #ffffc6;
 }
 
+.board-grid-jump-backward {
+  animation: board_grid_jump_backward 200ms;
+}
+
+.board-grid-jump-invalid {
+  animation: board_grid_jump_invalid 200ms;
+}
+
+.board-grid-jump-forward {
+  animation: board_grid_jump_forward 200ms;
+}
+
+@keyframes board_grid_jump_backward {
+  0% {
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: rotate(-5deg);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes board_grid_jump_invalid {
+  0% {
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: scale(0.9);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes board_grid_jump_forward {
+  0% {
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: rotate(5deg);
+    animation-timing-function: ease-in;
+  }
+}
+
 .board-row {
   display: flex;
   flex-direction: row;
