@@ -154,6 +154,7 @@ class Game extends React.Component {
 
   handleClick(i) {
     if (this.calculateWinner() || this.currentState.squares[i]) {
+      this.setStateAfterAnimation('click-invalid', {});
       return;
     }
 

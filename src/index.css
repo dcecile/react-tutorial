@@ -146,6 +146,22 @@ body {
   border-right: none;
 }
 
+.board-grid-click-invalid .square {
+  animation: board_grid_click_invalid 300ms;
+}
+
+@keyframes board_grid_click_invalid {
+  0% {
+    animation-timing-function: ease-in;
+  }
+
+  50% {
+    border-color: #ff7575;
+    color: #ff7575;
+    animation-timing-function: ease-out;
+  }
+}
+
 .history {
   display: flex;
   flex-direction: column;
