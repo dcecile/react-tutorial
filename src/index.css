@@ -4,10 +4,24 @@ html {
 }
 
 body {
+  margin: 0;
+  background-color: #005f24;
+  background-image: url(/dust.png);
+  background-size: 512px;
+}
+
+.root {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 1rem;
+  padding: 1rem;
+  min-height: 100vh;
+  border: 4px solid #69540d;
+  box-sizing: border-box;
+  color: white;
+  background-image: url(/chalk.png);
+  background-size: 32px;
+  isolation: isolate;
 }
 
 .game {
@@ -15,25 +29,26 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  mix-blend-mode: multiply;
 }
 
 .game-main {
   margin: 1rem 2rem;
+  text-align: center;
 }
 
 .status {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .board-grid {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  height: 6rem;
-  width: 6rem;
-  line-height: 2rem;
-  text-align: center;
-  font-size: 1.2rem;
+  height: 9rem;
+  width: 9rem;
+  line-height: 3rem;
+  font-size: 1.8rem;
 }
 
 .board-row {
@@ -43,26 +58,26 @@ body {
 }
 
 .square {
-  border: 3px solid black;
+  border: 3px solid white;
   margin: -3px 0 0 -3px;
   flex: 1;
   cursor: pointer;
 }
 
-.board-row:first-child .square:first-child {
-  border-top-left-radius: 0.8rem;
+.board-row:first-child .square {
+  border-top: none;
 }
 
-.board-row:first-child .square:last-child {
-  border-top-right-radius: 0.8rem;
+.board-row:last-child .square {
+  border-bottom: none;
 }
 
-.board-row:last-child .square:first-child {
-  border-bottom-left-radius: 0.8rem;
+.square:first-child {
+  border-left: none;
 }
 
-.board-row:last-child .square:last-child {
-  border-bottom-right-radius: 0.8rem;
+.square:last-child {
+  border-right: none;
 }
 
 .history {
@@ -73,8 +88,9 @@ body {
 
 .history-entry {
   font: inherit;
+  color: inherit;
   background: none;
-  border: 2px solid black;
+  border: 2px solid white;
   padding: 0.2em 0.5em;
   border-radius: 0.4em;
   cursor: pointer;

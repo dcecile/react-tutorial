@@ -141,13 +141,13 @@ class Game extends React.Component {
         `Go to move #${i}` :
         'Go to game start';
       return (
-        <button className="history-entry" onClick={() => this.jumpToState(i)}>
+        <button key={i} className="history-entry" onClick={() => this.jumpToState(i)}>
           {description}
         </button>
       );
     });
     return (
-      <div class="history">{moves}</div>
+      <div className="history">{moves}</div>
     );
   }
 }
@@ -156,5 +156,5 @@ class Game extends React.Component {
 
 ReactDOM.render(
   <Game />,
-  document.getElementById('root')
+  document.querySelector('.root')
 );
