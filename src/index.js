@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import './index.css';
 
 function Square(props) {
@@ -32,6 +33,23 @@ function Board(props) {
       {renderRow(1)}
       {renderRow(2)}
     </div>
+  );
+}
+
+function HistoryItem(props) {
+  const moveNumber = !props.i ?  'game start' : `move #${props.i}`;
+  const description = `Go to ${moveNumber}`;
+
+  const className = classNames({
+    'history-entry': true,
+    'history-entry-current': props.diff === 0,
+    'history-entry-next': props.diff > 0
+  });
+
+  return (
+    <button className={className} onClick={props.onClick}>
+      {description}
+    </button>
   );
 }
 
@@ -127,8 +145,8 @@ class Game extends React.Component {
   renderStatus() {
     const winner = this.calculateWinner();
     const status = winner ?
-      `Winner: ${winner}` :
-      `Next player: ${this.nextPlayer}`;
+      `${winner} is the winner!` :
+      `${this.nextPlayer} is next...`;
 
     return (
       <div className="status">{status}</div>
@@ -136,16 +154,14 @@ class Game extends React.Component {
   }
 
   renderHistory() {
-    const moves = this.state.history.map((_state, i) => {
-      const description = i ?
-        `Go to move #${i}` :
-        'Go to game start';
-      return (
-        <button key={i} className="history-entry" onClick={() => this.jumpToState(i)}>
-          {description}
-        </button>
-      );
-    });
+    const moves = this.state.history.map((_state, i) => (
+      <HistoryItem
+        key={i}
+        i={i}
+        diff={i - this.state.historyIndex}
+        onClick={() => this.jumpToState(i)}
+      />
+    ));
     return (
       <div className="history">{moves}</div>
     );

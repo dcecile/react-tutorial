@@ -26,8 +26,7 @@ body {
 
 .game {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   mix-blend-mode: multiply;
 }
@@ -49,6 +48,7 @@ body {
   width: 9rem;
   line-height: 3rem;
   font-size: 1.8rem;
+  color: #ffffc6;
 }
 
 .board-row {
@@ -91,11 +91,31 @@ body {
   color: inherit;
   background: none;
   border: 2px solid white;
-  padding: 0.2em 0.5em;
+  padding: 0.2em 0.6em;
   border-radius: 0.4em;
   cursor: pointer;
+  outline: none;
 }
 
 .history-entry:not(:first-child) {
-  margin-top: 10px;
+  margin-top: 0.6em;
+}
+
+.history-entry-current {
+  color: #c5e3f7;
+  border-color: #c5e3f7;
+}
+
+.history-entry-next {
+  opacity: 0.5;
+}
+
+@media (min-width: 50rem) {
+  .game {
+    flex-direction: row;
+  }
+
+  .history {
+    margin-top: 2rem;
+  }
 }
