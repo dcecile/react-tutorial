@@ -131,8 +131,17 @@ body {
   opacity: 0.5;
 }
 
+.history-entry-entering {
+  transform: scale(1, 0);
+}
+
+.history-entry-entered {
+  transform: scale(1, 1);
+  transition: transform 200ms ease-out;
+}
+
 .history-entry-exiting {
-  transform: scale(0.0);
+  transform: scale(0);
   opacity: 0;
   transition:
     transform 400ms ease-in,

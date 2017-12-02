@@ -166,7 +166,7 @@ class Game extends React.Component {
     );
 
     const historyItems = this.state.history.map((_state, i) => (
-      <Transition key={i} timeout={{exit: 400}}>
+      <Transition key={i} timeout={{enter: 0, exit: 400}}>
         {status => createHistoryItem(i, status)}
       </Transition>
     ));
