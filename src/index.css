@@ -65,6 +65,9 @@ body {
   transition:
     background-color 400ms ease-out,
     box-shadow 400ms ease-in;
+  text-shadow:
+    0 0 0.2em rgba(255, 129, 188, 0.7),
+    0 0 0.5em rgba(255, 129, 188, 0.7);
 }
 
 .square:hover {
@@ -75,6 +78,11 @@ body {
   transition:
     background-color 50ms ease-in,
     box-shadow 50ms ease-out;
+}
+
+.square:not(:empty) {
+  text-shadow: none;
+  transition: text-shadow 500ms ease-in;
 }
 
 .board-row:first-child .square {
@@ -123,8 +131,8 @@ body {
 }
 
 .history-entry-current {
-  color: #c5e3f7;
-  border-color: #c5e3f7;
+  color: #b8e1fd;
+  border-color: #b8e1fd;
 }
 
 .history-entry-next {
@@ -133,11 +141,14 @@ body {
 
 .history-entry-entering {
   transform: scale(1, 0);
+  box-shadow:
+    inset 0 0 1.0em rgba(255, 129, 188, 0.7);
 }
 
 .history-entry-entered {
-  transform: scale(1, 1);
-  transition: transform 200ms ease-out;
+  transition:
+    transform 200ms ease-out,
+    box-shadow 1000ms ease-in;
 }
 
 .history-entry-exiting {
