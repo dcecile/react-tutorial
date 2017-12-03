@@ -4,19 +4,19 @@ import { Transition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import './index.css';
 
-function Square(props) {
+function Square({value, onClick}) {
   return (
-    <span className="square" onClick={props.onClick}>
-      {props.value}
+    <span className="square" onClick={onClick}>
+      {value}
     </span>
   );
 }
 
-function Board(props) {
+function Board({squares, onClick, animation}) {
   const renderSquare = i => (
     <Square
-      value={props.squares[i]}
-      onClick={() => props.onClick(i)}
+      value={squares[i]}
+      onClick={() => onClick(i)}
     />
   );
 
@@ -30,7 +30,7 @@ function Board(props) {
 
   const className = classNames({
     'board-grid': true,
-    [`board-grid-${props.animation}`]: props.animation
+    [`board-grid-${animation}`]: animation
   });
 
   return (
@@ -42,19 +42,19 @@ function Board(props) {
   );
 }
 
-function HistoryItem(props) {
-  const moveNumber = !props.i ?  'game start' : `move #${props.i}`;
+function HistoryItem({index, diff, status, onClick}) {
+  const moveNumber = !index ?  'game start' : `move #${index}`;
   const description = `Go to ${moveNumber}`;
 
   const className = classNames({
     'history-entry': true,
-    'history-entry-current': props.diff === 0,
-    'history-entry-next': props.diff > 0,
-    [`history-entry-${props.status}`]: true
+    'history-entry-current': diff === 0,
+    'history-entry-next': diff > 0,
+    [`history-entry-${status}`]: true
   });
 
   return (
-    <button className={className} onClick={props.onClick}>
+    <button className={className} onClick={onClick}>
       {description}
     </button>
   );
@@ -204,9 +204,9 @@ class Game extends React.Component {
   renderHistory() {
     const createHistoryItem = (i, status) => (
       <HistoryItem
-        i={i}
-        status={status}
+        index={i}
         diff={i - this.state.historyIndex}
+        status={status}
         onClick={() => this.jumpToState(i)}
       />
     );
@@ -224,8 +224,6 @@ class Game extends React.Component {
     );
   }
 }
-
-// ========================================
 
 ReactDOM.render(
   <Game />,
