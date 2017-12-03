@@ -189,9 +189,12 @@ class Game extends React.Component {
 
   renderStatus() {
     const winner = this.calculateWinner();
-    const status = winner ?
-      `${winner} is the winner!` :
-      `${this.nextPlayer} is next...`;
+    const status =
+      winner ?
+        `${winner} is the winner!` :
+      this.state.historyIndex === 9 ?
+        "It's a tie." :
+        `${this.nextPlayer} is next...`;
 
     return (
       <div className="status">{status}</div>
